@@ -1,0 +1,13 @@
+AimTuner bundles the following open-source software in AimTuner.exe.
+
+- Python 3.12 — Python Software Foundation License
+  https://docs.python.org/3/license.html
+- pygame 2.6.1 — GNU LGPL v2.1 (dynamically loaded; you may replace it)
+  Source: https://github.com/pygame/pygame
+  Includes SDL2 (zlib license) https://github.com/libsdl-org/SDL
+  and SDL_ttf / FreeType (FreeType License) https://freetype.org
+- NumPy — BSD 3-Clause License  https://github.com/numpy/numpy
+- PyInstaller bootloader — GPL v2 with a special exception that allows
+  distributing bundled programs under any license  https://pyinstaller.org
+
+Fonts are not bundled; AimTuner uses Malgun Gothic that ships with Windows.
