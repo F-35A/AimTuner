@@ -51,12 +51,8 @@ Free, open-source DPI & sensitivity tuner for Roblox FPS games (BRM5 etc.).
 
 ## Release / 배포
 
-`v*` 태그를 푸시하면 GitHub Actions가 Windows에서 테스트 → EXE 빌드 → Release에 zip 첨부까지 자동으로 합니다.
-Pushing a `v*` tag makes GitHub Actions test, build the EXE on Windows and attach the zip to a Release.
-
-```
-git tag v1.0.4 && git push origin v1.0.4
-```
+`app.py`의 `VERSION`을 올리고 `main`에 푸시하면, GitHub Actions가 Windows에서 테스트 → EXE 빌드 → 실행 확인 → `vX.Y.Z` Release 생성 + zip 첨부까지 자동으로 합니다. (이미 있는 버전이면 빌드만 하고 Release는 건너뜀)
+Bump `VERSION` in `app.py` and push to `main`: GitHub Actions tests, builds and smoke-runs the EXE on Windows, then creates the `vX.Y.Z` Release with the zip (skipped if that version already exists).
 
 ## Build / 빌드
 

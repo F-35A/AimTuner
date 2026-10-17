@@ -2,6 +2,7 @@ name: Build & Release
 
 on:
   push:
+    branches: [main]
     tags: ["v*"]
   workflow_dispatch:
 
@@ -17,6 +18,19 @@ jobs:
       AIMTUNER_LANG: ko
     steps:
       - uses: actions/checkout@v4
+
+      - name: Version
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $v = (Select-String -Path app.py -Pattern 'VERSION = "(.+?)"').Matches[0].Groups[1].Value
+          $tag = "v$v"
+          "TAG=$tag" | Out-File -FilePath $env:GITHUB_ENV -Append
+          gh release view $tag --repo $env:GITHUB_REPOSITORY *> $null
+          $new = if ($LASTEXITCODE -eq 0) { "false" } else { "true" }
+          "NEW_RELEASE=$new" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Write-Host "version $tag, new release: $new"
 
       - uses: actions/setup-python@v5
         with:
@@ -44,7 +58,7 @@ jobs:
       - name: Package
         shell: pwsh
         run: |
-          $name = if ($env:GITHUB_REF_TYPE -eq "tag") { $env:GITHUB_REF_NAME } else { "dev" }
+          $name = $env:TAG
           New-Item -ItemType Directory -Force -Path pkg\AimTuner | Out-Null
           Copy-Item dist\AimTuner.exe, README.md, LICENSE, THIRD_PARTY_NOTICES.txt, CHANGELOG.md pkg\AimTuner\
           Compress-Archive -Path pkg\AimTuner -DestinationPath "AimTuner-$name-windows.zip"
@@ -56,8 +70,11 @@ jobs:
           path: ${{ env.ZIP }}
 
       - name: Release
-        if: github.ref_type == 'tag'
+        if: env.NEW_RELEASE == 'true' && github.ref_name == 'main'
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ env.TAG }}
+          name: AimTuner ${{ env.TAG }}
+          target_commitish: ${{ github.sha }}
           files: ${{ env.ZIP }}
           body_path: CHANGELOG.md
