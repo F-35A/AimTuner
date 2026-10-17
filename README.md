@@ -3,8 +3,13 @@
 Free, open-source DPI & sensitivity tuner for Roblox FPS games (BRM5 etc.).
 무료 오픈소스 DPI·감도 세팅기 (BRM5 등 Roblox FPS).
 
+**다운로드 / Download:** [Releases](../../releases/latest) → `AimTuner-vX.Y.Z-windows.zip` → 압축 풀고 `AimTuner.exe`
+
 **배포 / Distributed via:** Discord — https://discord.gg/gfRYA7AqkR
 (업데이트·버그 제보·문의 / updates, bug reports, support)
+
+> 처음 실행 시 "Windows의 PC 보호" 창이 뜨면 **추가 정보 → 실행**. 서명 안 된 무료 프로그램이라 뜨는 경고입니다. 일부 백신이 PyInstaller EXE를 오탐할 수 있습니다 — 걱정되면 소스에서 직접 빌드하세요.
+> On first run, if "Windows protected your PC" appears, click **More info → Run anyway** (unsigned free app). Some antivirus tools flag PyInstaller EXEs by mistake — build from source if unsure.
 
 ## English
 
@@ -43,6 +48,15 @@ Free, open-source DPI & sensitivity tuner for Roblox FPS games (BRM5 etc.).
 - 게임 파일은 건드리지 않음. 윈도우 포인터 설정만 버튼 누를 때 변경.
 - PVP 기록은 마우스를 *읽기만* 함. 2~3단계 F7/F8 측정은 매크로처럼 마우스를 *움직임* — 안티치트 있는 게임에선 본인 책임.
 - F7/F8 측정은 게임이 창/테두리 없는 창 모드여야 함.
+
+## Release / 배포
+
+`v*` 태그를 푸시하면 GitHub Actions가 Windows에서 테스트 → EXE 빌드 → Release에 zip 첨부까지 자동으로 합니다.
+Pushing a `v*` tag makes GitHub Actions test, build the EXE on Windows and attach the zip to a Release.
+
+```
+git tag v1.0.4 && git push origin v1.0.4
+```
 
 ## Build / 빌드
 
